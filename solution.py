@@ -10,12 +10,11 @@ def solution(p: float, x: np.array) -> tuple:
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
-    n = len(x)
-    s = np.std(x)
     alpha = 1 - p
-    #left = chi2.ppf(1 - alpha/2, n-1)
-    #right = chi2.ppf(alpha/2, n-1)
-    left = chi2.ppf(alpha/2, n-1)
-    right = chi2.ppf(1 - alpha/2, n-1)
-    return np.sqrt((n-1) * s**2 / left / 20), \
-           np.sqrt((n-1) * s**2 / right / 20)
+    n = len(x)
+    x2 = np.array([xi**2 for xi in x])
+    x2_mean = x2.mean()
+    chi2_rv = chi2(df = 2 * n)
+    left = chi2_rv.ppf(1 - alpha / 2)
+    right = chi2_rv.ppf(alpha / 2)
+    return np.sqrt(n * x2_mean / (left * 20)), np.sqrt(n * x2_mean / (right * 20))
