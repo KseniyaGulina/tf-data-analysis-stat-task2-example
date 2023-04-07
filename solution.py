@@ -12,7 +12,8 @@ def solution(p: float, x: np.array) -> tuple:
     # Не меняйте название функции и её аргументы
     n = len(x)
     s = np.std(x)
-    left = chi2.ppf((1 - p)/2, n-1)
-    right = chi2.ppf((1 + p)/2, n-1)
+    aplha = 1 - p
+    left = chi2.ppf((1 - alpha)/2, n-1)
+    right = chi2.ppf(alpha/2, n-1)
     return np.sqrt((n-1) * s**2 / left / 20), \
            np.sqrt((n-1) * s**2 / right / 20)
